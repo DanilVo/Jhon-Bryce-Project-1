@@ -17,6 +17,9 @@ const saveTask = document.querySelector('.savetask');
 const resetTask = document.querySelector('.resettask');
 const notes = document.querySelector('ul');
 
+const localStorage_KEY = 'tasks';
+const dataTransfer_KEY = 'indexOfTask';
+
 saveTask.addEventListener('click', saveValuesToLocalStorage);
 
 // Function to save values to local storage
@@ -58,8 +61,13 @@ function renderTasksFromLs() {
     arrayOfTasks.forEach((task) => {
       // Create and append task elements to the DOM
       const liTag = document.createElement('li');
+      // Event handler
       liTag.ondragstart = (event) => {
-        event.dataTransfer.setData('id', arrayOfTasks.indexOf(task));
+        liTag.classList.add('dragged')
+        event.dataTransfer.setData(
+          dataTransfer_KEY,
+          arrayOfTasks.indexOf(task)
+        );
       };
       liTag.classList.add('window');
 
@@ -111,6 +119,7 @@ function renderTasksFromLs() {
       textNote.classList.add('note');
       liTag.setAttribute('id', task.id);
 
+      // Make each li element draggable
       liTag.setAttribute('draggable', 'true');
 
       windowBody.appendChild(editTask);
@@ -154,12 +163,12 @@ function renderTasksFromLs() {
 }
 
 function saveToLocalStorage(arrayOfTasks) {
-  localStorage.removeItem('tasks');
-  localStorage.setItem('tasks', JSON.stringify(arrayOfTasks));
+  localStorage.removeItem(localStorage_KEY);
+  localStorage.setItem(localStorage_KEY, JSON.stringify(arrayOfTasks));
 }
 
 function getArrayFromLocalStorage() {
-  let arrayOfTasks = localStorage.getItem('tasks');
+  let arrayOfTasks = localStorage.getItem(localStorage_KEY);
   return JSON.parse(arrayOfTasks);
 }
 
@@ -191,10 +200,11 @@ function checkEndTask(expiredText, task) {
 }
 
 // Adding event handler to trash bin
+// getData('indexOfTask') will be set at line 62
 const recycleBinDrop = document.querySelector('.recycleBin');
 recycleBinDrop.ondrop = (event) => {
   const localStorageData = getArrayFromLocalStorage();
-  const itemIndex = parseInt(event.dataTransfer.getData('id'));
+  const itemIndex = parseInt(event.dataTransfer.getData(dataTransfer_KEY));
   localStorageData.splice(itemIndex, 1);
   notes.removeChild(notes.childNodes[itemIndex]);
   saveToLocalStorage(localStorageData);
