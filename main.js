@@ -63,7 +63,7 @@ function renderTasksFromLs() {
       const liTag = document.createElement('li');
       // Event handler
       liTag.ondragstart = (event) => {
-        liTag.classList.add('dragged')
+        liTag.classList.add('dragged');
         event.dataTransfer.setData(
           dataTransfer_KEY,
           arrayOfTasks.indexOf(task)
@@ -94,7 +94,7 @@ function renderTasksFromLs() {
 
       const expiredText = document.createElement('span');
       expiredText.textContent = 'Expired!';
-      expiredText.style.setProperty('display', 'none');
+      expiredText.style.display = 'none';
 
       const windowBody = document.createElement('div');
       windowBody.classList.add('window-body');
@@ -174,27 +174,13 @@ function getArrayFromLocalStorage() {
 
 // Function to check if there are tasks expired
 function checkEndTask(expiredText, task) {
-  const today = new Date();
-  let year = today.getFullYear().toString();
-  let month = (today.getMonth() + 1).toString();
-  let day = today.getDate().toString();
-  if (month.length == 1) {
-    month = `0${month}`;
-  }
-  if (day.length == 1) {
-    day = `0${day}`;
-  }
-  let dateNow = year + '-' + month + '-' + day;
-  let hour = today.getHours();
-  let minute = today.getMinutes();
-  if (minute.length == 1) {
-    minute = `0${minute}`;
-  }
-  let timeNow = `${hour}:${minute}`;
-  if (
-    dateNow.slice(8, 2) == task.dateInput.slice(8, 2) &&
-    timeNow.slice(0, 2) >= task.timeInput.slice(0, 2)
-  ) {
+  const now = new Date();
+  const nowInMs = now.getTime();
+
+  const noteFullDate = new Date(`${task.dateInput} ${task.timeInput}`);
+  const noteInMs = noteFullDate.getTime();
+
+  if (nowInMs - noteInMs >= 0) {
     expiredText.style.display = 'inline';
   }
 }

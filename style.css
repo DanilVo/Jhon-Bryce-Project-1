@@ -64,7 +64,6 @@ textarea {
   height: 40%;
   width: 95%;
   margin: 15px;
-  overflow: hidden;
   word-wrap: break-word;
 }
 
