@@ -1,5 +1,5 @@
 body {
-  background-image: url(./assets/images/windows.jpg);
+  background-image: url(assets/images/windows.jpg);
   background-size: cover;
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ body {
 
 .recycleBin {
   position: absolute;
-  background-image: url(./assets/images/recycle-bin.png);
+  background-image: url(assets/images/recycle-bin.png);
   background-repeat: no-repeat;
   height: 70px;
   width: 70px;
