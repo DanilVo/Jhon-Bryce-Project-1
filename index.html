@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/assets/images/windows-shortcut.ico"
+      type="icon"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!-- CSS framework -->
+    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+    <title>My Task Board</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="recycleBin"></div>
+      <div class="window windows">
+        <div class="title-bar">
+          <div class="title-bar-text">My Task Board</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="inputArea">
+            <label>Please add new note:</label>
+            <textarea class="textarea" minlength="1"></textarea>
+            <section class="dateTimeInput">
+              <label for="date">Enter end date:</label>
+              <input class="date" id="date" type="date" />
+              <label for="time">Enter end time:</label>
+              <input class="time" id="time" type="time" />
+            </section>
+            <section class="saveResetBtn">
+              <button class="savetask">Save Task</button>
+              <button class="resettask">Reset Input</button>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="noteArea">
+        <ul class="notes"></ul>
+      </div>
+    </div>
+    <footer>
+      <div class="title-bar footer">
+        <div class="title-bar-text footerDate" id="footerDate"></div>
+      </div>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>
